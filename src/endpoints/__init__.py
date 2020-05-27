@@ -21,9 +21,6 @@ def index():
         return markdown.markdown(content)
 
 
-# Devices --------------------------------------------------------------------------------------------------------------
-
-
 class Devices(Resource):
     @staticmethod
     def get():
@@ -54,13 +51,17 @@ class Device(Resource):
         return {'message': 'device has been removed.', 'data': con.delete_device(device)}, 200
 
 
-# Commands -------------------------------------------------------------------------------------------------------------
-
-
-class Commands(Resource):
+class Command(Resource):
     @staticmethod
-    def get(device):
-        return {'message': 'Success', 'data': con.get_commands(device)}, 200
+    def post(device, command):
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', required=True)
+        args = parser.parse_args()
+        return {'message': 'Command has been updated', 'data': con.edit_command(device, command, args.name)}, 201
+
+    @staticmethod
+    def delete(device, command):
+        return {'message': 'command has been removed.', 'data': con.delete_command(device, command)}, 200
 
 
 class Record(Resource):
@@ -79,23 +80,6 @@ class Record(Resource):
         return {'message': 'Command has been added', 'data': con.end_recording(device, args.name)}, 201
 
 
-class Command(Resource):
-    @staticmethod
-    def get(device, command):
-        return {'message': 'Success', 'data': con.get_command(device, command)}, 200
-
-    @staticmethod
-    def post(device, command):
-        parser = reqparse.RequestParser()
-        parser.add_argument('name', required=True)
-        args = parser.parse_args()
-        return {'message': 'Command has been updated', 'data': con.edit_command(device, command, args.name)}, 201
-
-    @staticmethod
-    def delete(device, command):
-        return {'message': 'command has been removed.', 'data': con.delete_command(device, command)}, 200
-
-
 class Send(Resource):
     @staticmethod
     def get(device, command):
@@ -105,7 +89,6 @@ class Send(Resource):
 
 api.add_resource(Devices, '/devices')
 api.add_resource(Device, '/device/<device>')
-api.add_resource(Commands, '/device/<device>/commands')
-api.add_resource(Record, '/device/<device>/commands/record')
 api.add_resource(Command, '/device/<device>/command/<command>')
-api.add_resource(Send, '/device/<device>/command/<command>/send')
+api.add_resource(Record, '/device/<device>/record')
+api.add_resource(Send, '/device/<device>/send/<command>')

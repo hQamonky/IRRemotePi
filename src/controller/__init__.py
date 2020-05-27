@@ -1,26 +1,37 @@
 import src.controller.ir
-import src.database
+from src.database import Database
 
 
 class Controller:
+    db = Database()
+
+    # Database ---------------------------------------------------------------------------------------------------------
+    def clear_database(self):
+        self.db.create()
+        return "Database created"
+
     # Devices ----------------------------------------------------------------------------------------------------------
     def get_devices(self):
-        return
+        return self.db.get_devices()
 
     def new_device(self, device):
-        return
+        return self.db.new_device(device)
 
     def get_device(self, device):
-        return
+        device = {"name": device, "commands": self.db.get_commands(device)}
+        return device
 
     def edit_device(self, device, new_name):
-        return
+        return self.db.update_device(device, new_name)
 
     def delete_device(self, device):
-        return
+        return self.db.delete_device(device)
 
     # Commands ---------------------------------------------------------------------------------------------------------
-    def get_commands(self, device):
+    def edit_command(self, device, command_name, new_name):
+        return
+
+    def delete_command(self, device, command_name):
         return
 
     def start_recording(self):
@@ -29,15 +40,6 @@ class Controller:
 
     def end_recording(self, device, command_name):
         # command = array.array(‘H’, [ir_read[x] for x in range(len(ir_read))])
-        return
-
-    def get_command(self, device, command_name):
-        return
-
-    def edit_command(self, device, command_name, new_name):
-        return
-
-    def delete_command(self, device, command_name):
         return
 
     def send_command(self, device, command_name):
