@@ -54,32 +54,42 @@ class Database:
         self.close()
         return "Device added"
 
-    def update_device(self, device_name, new_name):
-        Devices.update(self.connect(), device_name, new_name)
+    def get_device(self,device_id):
+        data = Devices.select(self.connect(), device_id)
+        self.close()
+        return data[0]
+
+    def update_device(self, device_id, new_name):
+        Devices.update(self.connect(), device_id, new_name)
         self.close()
         return "Device updated"
 
-    def delete_device(self, device_name):
+    def delete_device(self, device_id):
         c = self.connect()
-        device_id = Devices.select_id(c, device_name)[0]
         # Delete commands from device
         Commands.delete_device(c, device_id)
         # Delete device
-        Devices.delete(c, device_name)
+        Devices.delete(c, device_id)
         self.close()
         return "Device removed"
 
     # Commands ---------------------------------------------------------------------------------------------------------
 
-    def get_commands(self, device_name):
+    def get_commands(self, device_id):
         c = self.connect()
-        device_id = Devices.select_id(c, device_name)[0]
-        data = Commands.select(c, device_id)
+        data = Commands.select_all(c, device_id)
         self.close()
         return data
 
+    def get_command(self, command_id):
+        c = self.connect()
+        data = Commands.select(c, command_id)
+        self.close()
+        return data[0]
+
     def new_command(self, name, device_id, command):
-        Commands.insert(self.connect(), name, device_id, command)
+        c = self.connect()
+        Commands.insert(c, device_id, name, command)
         self.close()
         return "Command added"
 

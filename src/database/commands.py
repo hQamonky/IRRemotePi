@@ -2,7 +2,7 @@ class Commands:
     @staticmethod
     def create(cursor):
         cursor.execute("CREATE TABLE Commands ("
-                       "id text PRIMARY KEY AUTOINCREMENT, "
+                       "id integer PRIMARY KEY AUTOINCREMENT, "
                        "device_id INTEGER, "
                        "name text, "
                        "command text)")
@@ -12,13 +12,18 @@ class Commands:
         cursor.execute("DROP TABLE IF EXISTS Commands")
 
     @staticmethod
-    def select(cursor, device_id):
+    def select_all(cursor, device_id):
         cursor.execute("SELECT * FROM Commands WHERE device_id = ?", (device_id,))
         return cursor.fetchall()
 
     @staticmethod
+    def select(cursor, command_id):
+        cursor.execute("SELECT * FROM Commands WHERE id = ?", (command_id,))
+        return cursor.fetchall()
+
+    @staticmethod
     def insert(cursor, device_id, name, command):
-        cursor.execute("INSERT INTO Commands VALUES (?, ?, ?)",
+        cursor.execute("INSERT INTO Commands (device_id, name, command) VALUES (?, ?, ?)",
                        (device_id, name, command))
 
     @staticmethod

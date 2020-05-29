@@ -21,6 +21,12 @@ def index():
         return markdown.markdown(content)
 
 
+class ClearDatabase(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.clear_database()}, 200
+
+
 class Devices(Resource):
     @staticmethod
     def get():
@@ -36,59 +42,60 @@ class Devices(Resource):
 
 class Device(Resource):
     @staticmethod
-    def get(device):
-        return {'message': 'Success', 'data': con.get_device(device)}, 200
+    def get(device_id):
+        return {'message': 'Success', 'data': con.get_device(device_id)}, 200
 
     @staticmethod
-    def post(device):
+    def post(device_id):
         parser = reqparse.RequestParser()
         parser.add_argument('name', required=True)
         args = parser.parse_args()
-        return {'message': 'Device has been updated', 'data': con.edit_device(device, args.name)}, 201
+        return {'message': 'Device has been updated', 'data': con.edit_device(device_id, args.name)}, 201
 
     @staticmethod
-    def delete(device):
-        return {'message': 'device has been removed.', 'data': con.delete_device(device)}, 200
-
-
-class Command(Resource):
-    @staticmethod
-    def post(device, command):
-        parser = reqparse.RequestParser()
-        parser.add_argument('name', required=True)
-        args = parser.parse_args()
-        return {'message': 'Command has been updated', 'data': con.edit_command(device, command, args.name)}, 201
-
-    @staticmethod
-    def delete(device, command):
-        return {'message': 'command has been removed.', 'data': con.delete_command(device, command)}, 200
+    def delete(device_id):
+        return {'message': 'device has been removed.', 'data': con.delete_device(device_id)}, 200
 
 
 class Record(Resource):
     @staticmethod
-    def get():
-        con.start_recording()
-        return "Ready to record"
+    def get(device_id):
+        return "Ready to record a new command for " + con.start_recording(device_id)
 
     @staticmethod
-    def post(device):
-
+    def post(device_id):
         parser = reqparse.RequestParser()
         parser.add_argument('command_name', required=True)
         args = parser.parse_args()
 
-        return {'message': 'Command has been added', 'data': con.end_recording(device, args.name)}, 201
+        return {'message': 'Command has been saved', 'data': con.end_recording(device_id, args.command_name)}, 201
+
+
+class Command(Resource):
+    @staticmethod
+    def post(device_id, command_id):
+        parser = reqparse.RequestParser()
+        parser.add_argument('command_name', required=True)
+        args = parser.parse_args()
+        return {
+                   'message': 'Command has been updated',
+                   'data': con.edit_command(device_id, command_id, args.command_name)
+               }, 201
+
+    @staticmethod
+    def delete(device_id, command_id):
+        return {'message': 'command has been removed.', 'data': con.delete_command(device_id, command_id)}, 200
 
 
 class Send(Resource):
     @staticmethod
-    def get(device, command):
-        con.send_command(device, command)
-        return "Command sent"
+    def get(device_id, command_id):
+        return {'message': 'Command has been sent', 'data': con.send_command(device_id, command_id)}, 200
 
 
+api.add_resource(ClearDatabase, '/database/clear')
 api.add_resource(Devices, '/devices')
-api.add_resource(Device, '/device/<device>')
-api.add_resource(Command, '/device/<device>/command/<command>')
-api.add_resource(Record, '/device/<device>/record')
-api.add_resource(Send, '/device/<device>/send/<command>')
+api.add_resource(Device, '/device/<device_id>')
+api.add_resource(Record, '/device/<device_id>/record')
+api.add_resource(Command, '/device/<device_id>/command/<command_id>')
+api.add_resource(Send, '/device/<device_id>/send/<command_id>')
