@@ -8,8 +8,7 @@ WORKDIR /usr/src/app
 
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-# Intall the rpi.gpio python module
-# RUN pip install --no-cache-dir rpi.gpio
+RUN apt install libgpiod-dev
 
 COPY . .
 
