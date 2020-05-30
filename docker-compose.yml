@@ -7,5 +7,6 @@ services:
       - .:/usr/src/app
     devices:
       - /dev/gpiomem
+      - /dev/gpiochip0
     ports:
       - 8094:8080
