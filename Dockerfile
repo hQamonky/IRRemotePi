@@ -8,7 +8,7 @@
 FROM arm32v7/debian:latest
 
 RUN apt update & apt upgrade -y
-RUN apt install -y python3-dev
+# RUN apt install -y python3-dev
 RUN pip3 install --upgrade setuptools
 
 
