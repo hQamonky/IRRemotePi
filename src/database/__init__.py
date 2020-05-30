@@ -54,7 +54,7 @@ class Database:
         self.close()
         return "Device added"
 
-    def get_device(self,device_id):
+    def get_device(self, device_id):
         data = Devices.select(self.connect(), device_id)
         self.close()
         return data[0]
@@ -87,9 +87,9 @@ class Database:
         self.close()
         return data[0]
 
-    def new_command(self, name, device_id, command):
+    def new_command(self, name, device_id, signal):
         c = self.connect()
-        Commands.insert(c, device_id, name, command)
+        Commands.insert(c, device_id, name, signal)
         self.close()
         return "Command added"
 

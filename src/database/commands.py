@@ -5,7 +5,7 @@ class Commands:
                        "id integer PRIMARY KEY AUTOINCREMENT, "
                        "device_id INTEGER, "
                        "name text, "
-                       "command text)")
+                       "signal text)")
 
     @staticmethod
     def drop(cursor):
@@ -22,9 +22,9 @@ class Commands:
         return cursor.fetchall()
 
     @staticmethod
-    def insert(cursor, device_id, name, command):
-        cursor.execute("INSERT INTO Commands (device_id, name, command) VALUES (?, ?, ?)",
-                       (device_id, name, command))
+    def insert(cursor, device_id, name, signal):
+        cursor.execute("INSERT INTO Commands (device_id, name, signal) VALUES (?, ?, ?)",
+                       (device_id, name, signal))
 
     @staticmethod
     def update(cursor, identifier, name):

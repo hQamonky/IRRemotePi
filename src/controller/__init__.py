@@ -1,16 +1,19 @@
-import src.controller.ir
+from src.controller.ir import IR
 from src.database import Database
 
 
 class Controller:
     db = Database()
+    ir = IR()
 
-    # Database ---------------------------------------------------------------------------------------------------------
+    # Database
+
     def clear_database(self):
         self.db.create()
         return "Database cleared"
 
-    # Devices ----------------------------------------------------------------------------------------------------------
+    # Devices
+
     def get_devices(self):
         return self.db.get_devices()
 
@@ -28,16 +31,17 @@ class Controller:
     def delete_device(self, device_id):
         return self.db.delete_device(device_id)
 
-    # Commands ---------------------------------------------------------------------------------------------------------
+    # Commands
+
     def start_recording(self, device_id):
-        # ir_read.resume()
+        self.ir.start_recording()
         device = self.db.get_device(device_id)
         return device['name']
 
     def end_recording(self, device_id, command_name):
-        # command = array.array(‘H’, [ir_read[x] for x in range(len(ir_read))])
-        command = "test command"
-        return self.db.new_command(command_name, device_id, command)
+        signal = self.ir.stop_recording()
+        signal = "test signal"
+        return self.db.new_command(command_name, device_id, signal)
 
     def edit_command(self, device_id, command_id, new_name):
         return self.db.update_command(command_id, new_name)
@@ -49,7 +53,7 @@ class Controller:
         command = self.db.get_command(command_id)
         device = self.db.get_device(device_id)
         print(command['name'] + " sent from " + device['name'] + ".")
-        # ir.send(command)
+        self.ir.send(command['signal'])
         data = {
             "device": device,
             "command": command
