@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  rainbow-pi:
+  ir-remote-pi:
     build: .
     volumes:
       - .:/usr/src/app
