@@ -1,14 +1,14 @@
-# FROM alpine:latest
-FROM arm32v7/python:3
+FROM alpine:latest
+# FROM arm32v7/python:3
 
-# RUN apk add --no-cache python3-dev \
-#     && pip3 install --upgrade pip
+RUN apk add --no-cache python3-dev \
+    && pip3 install --upgrade pip
 
 WORKDIR /usr/src/app
 
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-RUN apt install libgpiod-dev
+RUN apk add --no-cache libgpiod-dev
 
 COPY . .
 
