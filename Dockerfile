@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM arm32v7/alpine:latest
 # FROM arm32v7/python:3
 
 RUN apk add --no-cache python3-dev \
