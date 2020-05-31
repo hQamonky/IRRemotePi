@@ -60,3 +60,6 @@ class Controller:
             "command": command
         }
         return data
+
+    def terminate(self):
+        self.ir.stop_pigpio()

@@ -4,3 +4,5 @@ markdown==3.2.2
 RPi.GPIO==0.7.0
 adafruit-blinka==5.0.1
 # gpiod==1.3.0
+pigpio~=1.46
+board~=1.0
