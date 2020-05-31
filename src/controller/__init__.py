@@ -36,9 +36,11 @@ class Controller:
 
     def record_command(self, device_id, command_name):
         command_id = self.db.new_command(command_name, device_id, "new_command")
+        print(command_id)
         signal = self.ir.record(command_id)
         # Waiting for user input...
         self.db.update_command_signal(command_id, signal)
+        self.db.clean_commands()
         return "Command added"
 
     def edit_command(self, device_id, command_id, new_name):
