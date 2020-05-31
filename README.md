@@ -12,7 +12,7 @@ Open a terminal and run:
 > `~/Downloads/install.sh`  
 
 ## Run service at startup
-Make the run script executable: `chmod +x ~/qmk/IRRemotePi/run.sh`
+Make the run script executable: `chmod +x ~/qmk/IRRemotePi/run.sh`  
 Edit cron with `sudo crontab -e`  
 Add the following line at the end of the file:  
 `@reboot ~/qmk/IRRemotePi/run.sh &`  
@@ -38,7 +38,7 @@ Open a terminal and run:
 
 # Usage
 Check out the [run.sh](https://raw.githubusercontent.com/hQamonky/IRRemotePi/master/run.sh) script to see how to launch the service.  
-The documentation for the API is accessible [here](https://github.com/hQamonky/IRRemotePi/blob/master/docs/API%20User%20Guide.md), at the `/` endpoint of the API, or directly in your folders at ~/qmk/IRRemotePi/docs/API\ User\ Guide.md.  
+The documentation for the API is accessible [here](https://github.com/hQamonky/IRRemotePi/blob/master/docs/API%20User%20Guide.md), at the `/` endpoint of the API, or directly in your installation folder at `~/qmk/IRRemotePi/docs/API\ User\ Guide.md`.  
 
 ## Use a different port
 By default, the API is accessible on the 8094 port. If you want to change this, edit the run.py file and change the 8094 value to whatever port you want.  
