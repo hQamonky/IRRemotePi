@@ -57,12 +57,12 @@ class IR:
 
         # -- Testing
         pin = 12
-        frequency = 38
+        frequency = 1
         duration = 10000
         pi = pigpio.pi()
 
         pi.set_mode(pin, pigpio.OUTPUT)
-        # frequency = int((1000 / frequency) * 1000)
+        frequency = int((1000 / frequency) * 1000)
 
         tone = [pigpio.pulse(1 << pin, 0, frequency), pigpio.pulse(0, 1 << pin, frequency)]  # flash every 100 ms
 
