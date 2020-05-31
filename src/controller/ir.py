@@ -25,7 +25,9 @@ class IR:
     def build_json(self, commands):
         data = []
         for command in commands:
-            data.append(json.loads(command))
+            print(command)
+            print(type(command))
+            data.append(json.loads(str(command)))
         return {
             "type": "CommandSet",
             "name": "remote",
