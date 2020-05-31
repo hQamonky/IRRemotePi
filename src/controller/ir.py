@@ -15,8 +15,11 @@ class IR:
     RR_pin = 13  # Receiver GPIO pin
 
     def __init__(self, commands):
-        remote_json = self.build_json(commands)
-        self.controller = CommandSet.from_json(remote_json)
+        if not commands:
+            self.controller = CommandSet(emitter_gpio=self.TR_pin, receiver_gpio=self.RR_pin, name='remote')
+        else:
+            remote_json = self.build_json(commands)
+            self.controller = CommandSet.from_json(remote_json)
 
     def build_json(self, commands):
         return {
