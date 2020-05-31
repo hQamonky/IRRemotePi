@@ -6,7 +6,7 @@ from ircodec.command import CommandSet
 import subprocess
 
 # Making sure pigpio daemon is started
-subprocess.run(["sudo", "pigpiod"], check=True, stdout=subprocess.PIPE, universal_newlines=True)
+# subprocess.run(["sudo", "pigpiod"], check=True, stdout=subprocess.PIPE, universal_newlines=True)
 
 
 class IR:
