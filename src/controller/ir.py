@@ -28,6 +28,7 @@ class IR:
     def stop_recording(self):
         self.IR_RR.pause()
         signal = array.array('H', [self.IR_RR[x] for x in range(len(self.IR_RR))])
+        signal = [self.IR_RR[x] for x in range(len(self.IR_RR))]
         self.reset_rr()
         return signal
 
