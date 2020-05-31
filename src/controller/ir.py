@@ -6,7 +6,8 @@ import array
 import time
 import subprocess
 
-subprocess.run(["sudo", "pigpio"], check=True, stdout=subprocess.PIPE, universal_newlines=True)
+process = subprocess.run(["sudo", "pigpio"], check=True, stdout=subprocess.PIPE, universal_newlines=True)
+print(process.stdout)
 
 
 class IR:
