@@ -98,7 +98,7 @@ class Database:
         Commands.insert(c, device_id, name, signal)
         new_command_id = Commands.select_last_command_id(c)
         self.close()
-        return new_command_id
+        return new_command_id[0]['id']
 
     def update_command_signal(self, command_id, signal):
         Commands.update_signal(self.connect(), command_id, signal)
