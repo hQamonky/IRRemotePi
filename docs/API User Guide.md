@@ -1,7 +1,7 @@
 # IR Remote Pi
 
 This document describes the endpoints of the IR Remote Pi API.  
-IR Remote Pi is a dockerized python web API that enables you to record and send IR signals with a Raspberry Pi.    
+IR Remote Pi ispython web API that enables you to record and send IR signals with a Raspberry Pi.    
 
 **Vocabulary**  
 - Devices  
@@ -117,20 +117,13 @@ Edit the specified device. Takes json as body format.
   
 Delete the specified device.  
 
-## Start recording an IR signal
-
-`GET` `/device/<device_id>/record`
-  
-Triggers the raspberry to start recording IR signals from its IR receiver.  
-Specify the id of the device for which you are going to record the signal.  
-Call this endpoint before pressing on a button that you want to record. Then call the "Save a command" endpoint to save the recorded command.  
-
-## Save a command
+## Record an IR signal
 
 `POST` `/device/<device_id>/record`
   
-Call this endpoint after starting to record a signal and pressing on the button that you want to record.  
-Specify the id of the device for which you want to save the command.  
+Triggers the raspberry to start recording IR signals from its IR receiver.  
+You have to record the signal while this page is loading: it will not load as long as it does not receive an IR signal. So press on the button that you want to record to make it load.  
+Specify the id of the device for which you want to save the command in the URL.  
 Set other parameters in the request body with json as body format.  
   
 ***Body Example***  

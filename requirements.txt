@@ -1,8 +1,5 @@
 Flask==1.1.2
 flask-restful==0.3.8
 markdown==3.2.2
-# RPi.GPIO==0.7.0
-# adafruit-blinka==5.0.1
 pigpio~=1.46
-# board~=1.0
 ircodec~=0.3.0

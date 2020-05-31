@@ -1,10 +1,5 @@
-# import RPi.GPIO as GPIO
 from ircodec.command import CommandSet
-import subprocess
 import json
-
-# Making sure pigpio daemon is started
-# subprocess.run(["sudo", "pigpiod"], check=True, stdout=subprocess.PIPE, universal_newlines=True)
 
 
 class IR:
