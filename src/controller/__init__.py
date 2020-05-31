@@ -4,6 +4,7 @@ from src.database import Database
 
 class Controller:
     db = Database()
+    db.clean_commands()
     ir = IR(db.get_all_commands())
 
     # Database

@@ -51,3 +51,7 @@ class Commands:
     @staticmethod
     def delete_device(cursor, device_id):
         cursor.execute("DELETE FROM Commands WHERE device_id = ?", (device_id,))
+
+    @staticmethod
+    def clean(cursor):
+        cursor.execute("DELETE FROM Commands WHERE signal = new_command")

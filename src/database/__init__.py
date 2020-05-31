@@ -114,3 +114,8 @@ class Database:
         Commands.delete(self.connect(), command_id)
         self.close()
         return "Command removed"
+
+    def clean_commands(self):
+        Commands.clean(self.connect())
+        self.close()
+        return "Cleaned commands"
