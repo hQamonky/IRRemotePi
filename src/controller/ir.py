@@ -19,7 +19,8 @@ class IR:
         if not commands:
             self.controller = CommandSet(emitter_gpio=self.TR_pin, receiver_gpio=self.RR_pin, name='remote')
         else:
-            remote_json = self.build_json(commands)
+            remote_json = json.dumps(self.build_json(commands))
+            print(remote_json)
             self.controller = CommandSet.from_json(remote_json)
 
     def build_json(self, commands):
@@ -28,7 +29,8 @@ class IR:
             command = command['signal']
             print(command)
             print(type(command))
-            data.append(command)
+            data.append(json.loads(command))
+        print("comnmands OK")
         return {
             "type": "CommandSet",
             "name": "remote",
