@@ -27,6 +27,7 @@ class IR:
         data = []
         for command in commands:
             command = str(command['id']) + ": " + command['signal']
+            print(command)
             data.append(json.loads(command))
         print("comnmands OK")
         return {
