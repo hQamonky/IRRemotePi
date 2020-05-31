@@ -11,7 +11,7 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 RUN pip3 install --upgrade adafruit_blinka
-RUN apk add --no-cache libgpiod-dev
+RUN apk add --no-cache gpiod libgpiod-dev
 
 
 # FROM arm32v7/python:3
