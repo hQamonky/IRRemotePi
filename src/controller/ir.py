@@ -57,8 +57,8 @@ class IR:
 
         # -- Testing
         pin = 12
-        frequency = 38000
-        duration = 100000
+        frequency = 38
+        duration = 10000
         pi = pigpio.pi()
 
         pi.set_mode(pin, pigpio.OUTPUT)
