@@ -59,16 +59,12 @@ class Device(Resource):
 
 class Record(Resource):
     @staticmethod
-    def get(device_id):
-        return "Ready to record a new command for " + con.start_recording(device_id)
-
-    @staticmethod
     def post(device_id):
         parser = reqparse.RequestParser()
         parser.add_argument('command_name', required=True)
         args = parser.parse_args()
 
-        return {'message': 'Command has been saved', 'data': con.end_recording(device_id, args.command_name)}, 201
+        return {'message': 'Command has been saved', 'data': con.record_command(device_id, args.command_name)}, 201
 
 
 class Command(Resource):
