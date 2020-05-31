@@ -75,9 +75,15 @@ class Database:
 
     # Commands ---------------------------------------------------------------------------------------------------------
 
+    def get_all_commands(self):
+        c = self.connect()
+        data = Commands.select_all(c)
+        self.close()
+        return data
+
     def get_commands(self, device_id):
         c = self.connect()
-        data = Commands.select_all(c, device_id)
+        data = Commands.select_device(c, device_id)
         self.close()
         return data
 
@@ -90,11 +96,17 @@ class Database:
     def new_command(self, name, device_id, signal):
         c = self.connect()
         Commands.insert(c, device_id, name, signal)
+        new_command_id = Commands.select_last_command_id(c)
         self.close()
-        return "Command added"
+        return new_command_id
 
-    def update_command(self, command_id, new_name):
-        Commands.update(self.connect(), command_id, new_name)
+    def update_command_signal(self, command_id, signal):
+        Commands.update_signal(self.connect(), command_id, signal)
+        self.close()
+        return "Command updated"
+
+    def update_command_name(self, command_id, new_name):
+        Commands.update_name(self.connect(), command_id, new_name)
         self.close()
         return "Command updated"
 

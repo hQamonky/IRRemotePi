@@ -3,14 +3,12 @@ import os
 from src.controller import Controller
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
-import atexit
 
 con = Controller()
 
 app = Flask(__name__)
 api = Api(app)
 
-atexit.register(lambda: con.terminate())
 
 # Route shows the user guide file.
 @app.route('/')

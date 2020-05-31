@@ -4,7 +4,7 @@ from src.database import Database
 
 class Controller:
     db = Database()
-    ir = IR()
+    ir = IR(db.get_all_commands())
 
     # Database
 
@@ -33,19 +33,15 @@ class Controller:
 
     # Commands
 
-    def start_recording(self, device_id):
-        self.ir.start_recording()
-        device = self.db.get_device(device_id)
-        return device['name']
-
-    def end_recording(self, device_id, command_name):
-        signal = self.ir.stop_recording()
-        # signal = "test signal"
-        print(signal)
-        return self.db.new_command(command_name, device_id, str(signal))
+    def record_command(self, device_id, command_name):
+        command_id = self.db.new_command(command_name, device_id, "new_command")
+        signal = self.ir.record(command_id)
+        # Waiting for user input...
+        self.db.update_command_signal(command_id, signal)
+        return "Command added"
 
     def edit_command(self, device_id, command_id, new_name):
-        return self.db.update_command(command_id, new_name)
+        return self.db.update_command_name(command_id, new_name)
 
     def delete_command(self, device_id, command_id):
         return self.db.delete_command(command_id)
@@ -60,6 +56,3 @@ class Controller:
             "command": command
         }
         return data
-
-    def terminate(self):
-        self.ir.stop_pigpio()
