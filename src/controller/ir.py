@@ -24,18 +24,17 @@ class IR:
             self.controller = CommandSet.from_json(remote_json)
 
     def build_json(self, commands):
-        data = []
+        data = '{'
         for command in commands:
-            command = '"' + str(command['id']) + '": ' + command['signal']
-            print(command)
-            data.append(json.loads(command))
+            data = data + '"' + str(command['id']) + '": ' + command['signal']
+        data = data + '}'
         print("comnmands OK")
         return {
             "type": "CommandSet",
             "name": "remote",
             "emitter_gpio": str(self.TR_pin),
             "receiver_gpio": str(self.RR_pin),
-            "commands": data,
+            "commands": json.loads(data),
             "description": ""
         }
 
