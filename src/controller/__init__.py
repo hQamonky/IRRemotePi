@@ -51,8 +51,8 @@ class Controller:
     def send_command(self, device_id, command_id):
         command = self.db.get_command(command_id)
         device = self.db.get_device(device_id)
+        self.ir.send(command_id)
         print(command['name'] + " sent from " + device['name'] + ".")
-        self.ir.send(command['signal'])
         data = {
             "device": device,
             "command": command

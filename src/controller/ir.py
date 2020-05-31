@@ -28,7 +28,6 @@ class IR:
         for command in commands:
             data = data + '"' + str(command['id']) + '": ' + command['signal']
         data = data + '}'
-        print("comnmands OK")
         return {
             "type": "CommandSet",
             "name": "remote",
@@ -43,4 +42,5 @@ class IR:
         return self.controller.commands[command].to_json()
 
     def send(self, command):
+        print(command)
         self.controller.emit(command)
