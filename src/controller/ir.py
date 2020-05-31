@@ -1,7 +1,4 @@
 # import RPi.GPIO as GPIO
-import pigpio
-import array
-import time
 from ircodec.command import CommandSet
 import subprocess
 import json
@@ -41,7 +38,4 @@ class IR:
         return self.controller.commands["command_" + str(command)].to_json()
 
     def send(self, command):
-        print(type(command))
-        print(command)
-        print(self.controller.commands)
         self.controller.emit("command_" + str(command))
