@@ -48,3 +48,4 @@ class IR:
                 self.IR_TR.start(50)
                 on = True
             time.sleep(timer / 1000000)
+        self.IR_TR.stop()
