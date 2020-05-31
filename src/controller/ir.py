@@ -4,6 +4,7 @@ import array
 import time
 from ircodec.command import CommandSet
 import subprocess
+import json
 
 # Making sure pigpio daemon is started
 # subprocess.run(["sudo", "pigpiod"], check=True, stdout=subprocess.PIPE, universal_newlines=True)
@@ -22,12 +23,15 @@ class IR:
             self.controller = CommandSet.from_json(remote_json)
 
     def build_json(self, commands):
+        data = []
+        for command in commands:
+            data.append(json.loads(command))
         return {
             "type": "CommandSet",
             "name": "remote",
             "emitter_gpio": str(self.TR_pin),
             "receiver_gpio": str(self.RR_pin),
-            "commands": commands,
+            "commands": data,
             "description": ""
         }
 
