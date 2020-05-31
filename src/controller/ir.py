@@ -42,4 +42,6 @@ class IR:
 
     def send(self, command):
         print(type(command))
+        print(command)
+        print(self.controller.commands)
         self.controller.emit(command)
