@@ -25,7 +25,7 @@ class IR:
     def build_json(self, commands):
         data = '{'
         for command in commands:
-            data = data + '"' + str(command['id']) + '": ' + command['signal']
+            data = data + '"' + str("command_" + command['id']) + '": ' + command['signal']
         data = data + '}'
         return {
             "type": "CommandSet",
@@ -37,7 +37,7 @@ class IR:
         }
 
     def record(self, command):
-        self.controller.add(command)
+        self.controller.add("command_" + command)
         return self.controller.commands[command].to_json()
 
     def send(self, command):
