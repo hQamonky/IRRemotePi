@@ -25,7 +25,7 @@ class IR:
     def build_json(self, commands):
         data = '{'
         for command in commands:
-            data = data + '"' + str("command_" + command['id']) + '": ' + command['signal']
+            data = data + '"command_' + str(command['id']) + '": ' + command['signal']
         data = data + '}'
         return {
             "type": "CommandSet",
