@@ -4,6 +4,9 @@ import board
 import pulseio
 import array
 import time
+import subprocess
+
+subprocess.run(["sudo", "pigpio"], check=True, stdout=subprocess.PIPE, universal_newlines=True)
 
 
 class IR:
