@@ -36,8 +36,9 @@ class IR:
         self.IR_RR.clear()
 
     def send(self, command):
+        signal = eval(command)
         on = False
-        for timer in command:
+        for timer in signal:
             if on:
                 self.IR_TR.stop()
                 on = False
