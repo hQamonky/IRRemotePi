@@ -28,7 +28,7 @@ class IR:
             command = command['signal']
             print(command)
             print(type(command))
-            data.append(json.loads(str(command)))
+            data.append(command)
         return {
             "type": "CommandSet",
             "name": "remote",
