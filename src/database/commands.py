@@ -54,4 +54,4 @@ class Commands:
 
     @staticmethod
     def clean(cursor):
-        cursor.execute("DELETE FROM Commands WHERE signal = new_command")
+        cursor.execute("DELETE FROM Commands WHERE signal = ?", ("new_command",))
