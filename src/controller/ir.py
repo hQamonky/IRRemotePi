@@ -20,7 +20,6 @@ class IR:
             self.controller = CommandSet(emitter_gpio=self.TR_pin, receiver_gpio=self.RR_pin, name='remote')
         else:
             remote_json = json.dumps(self.build_json(commands))
-            print(remote_json)
             self.controller = CommandSet.from_json(remote_json)
 
     def build_json(self, commands):
