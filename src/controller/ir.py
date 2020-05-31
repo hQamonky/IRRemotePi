@@ -34,11 +34,9 @@ class IR:
         }
 
     def record(self, command):
-        print(command)
+        print(type(self.controller))
         self.controller.add("command_" + str(command))
         return self.controller.commands["command_" + str(command)].to_json()
 
     def send(self, command):
-        print(command)
-        print(self.controller.commands)
         self.controller.emit("command_" + str(command))
