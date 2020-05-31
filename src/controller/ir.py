@@ -44,4 +44,4 @@ class IR:
         print(type(command))
         print(command)
         print(self.controller.commands)
-        self.controller.emit(command)
+        self.controller.emit("command_" + command)
