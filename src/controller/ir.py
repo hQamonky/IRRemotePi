@@ -18,6 +18,7 @@ class IR:
         GPIO.setup(self.TR_pin, GPIO.OUT)
         # Initiate ir transmitter variable
         self.IR_TR = GPIO.PWM(self.TR_pin, 38000)
+        self.IR_TR.stop()
         # Initiate ir receiver variable
         self.IR_RR = pulseio.PulseIn(self.RR_pin, maxlen=100, idle_state=True)
         self.IR_RR.pause()
@@ -37,8 +38,9 @@ class IR:
 
     def send(self, command):
         signal = eval(command)
+        c_signal = array.array('H', [signal[x] for x in range(len(signal))])
         on = False
-        for timer in signal:
+        for timer in c_signal:
             if on:
                 self.IR_TR.stop()
                 on = False
