@@ -42,7 +42,7 @@ class Controller:
         signal = self.ir.stop_recording()
         # signal = "test signal"
         print(signal)
-        return self.db.new_command(command_name, device_id, signal)
+        return self.db.new_command(command_name, device_id, str(signal))
 
     def edit_command(self, device_id, command_id, new_name):
         return self.db.update_command(command_id, new_name)
