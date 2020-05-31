@@ -26,7 +26,7 @@ class IR:
     def build_json(self, commands):
         data = []
         for command in commands:
-            command = str(command['id']) + ": " + command['signal']
+            command = '"' + str(command['id']) + '": ' + command['signal']
             print(command)
             data.append(json.loads(command))
         print("comnmands OK")
