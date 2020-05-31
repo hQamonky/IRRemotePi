@@ -40,7 +40,7 @@ class Controller:
 
     def end_recording(self, device_id, command_name):
         signal = self.ir.stop_recording()
-        signal = "test signal"
+        # signal = "test signal"
         return self.db.new_command(command_name, device_id, signal)
 
     def edit_command(self, device_id, command_id, new_name):
