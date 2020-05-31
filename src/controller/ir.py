@@ -27,8 +27,8 @@ class IR:
         return {
             "type": "CommandSet",
             "name": "remote",
-            "emitter_gpio": str(self.TR_pin),
-            "receiver_gpio": str(self.RR_pin),
+            "emitter_gpio": self.TR_pin,
+            "receiver_gpio": self.RR_pin,
             "commands": json.loads(data),
             "description": ""
         }
