@@ -6,8 +6,8 @@ import array
 import time
 import subprocess
 
-process = subprocess.run(["sudo", "pigpio"], check=True, stdout=subprocess.PIPE, universal_newlines=True)
-print(process.stdout)
+# Making sure pigpio daemon is started
+process = subprocess.run(["sudo", "pigpiod"], check=True, stdout=subprocess.PIPE, universal_newlines=True)
 
 
 class IR:
@@ -35,7 +35,6 @@ class IR:
         # self.IR_TR = GPIO.PWM(self.TR_pin, 38000)
         # self.IR_TR.stop()
 
-
         # Initiate ir receiver variable
         self.IR_RR = pulseio.PulseIn(self.RR_pin, maxlen=100, idle_state=True)
         self.IR_RR.pause()
@@ -57,31 +56,27 @@ class IR:
         signal = eval(command)
 
         # -- Testing
-        G1 = 12
+        pin = 12
+        frequency = 38000
+        duration = 100
         pi = pigpio.pi()
 
-        pi.set_mode(G1, pigpio.OUTPUT)
+        pi.set_mode(pin, pigpio.OUTPUT)
+        frequency = int((1000 / frequency) * 1000)
 
-        flash_500 = []  # flash every 500 ms
+        tone = [pigpio.pulse(1 << pin, 0, frequency), pigpio.pulse(0, 1 << pin, frequency)]  # flash every 100 ms
 
-        #                              ON     OFF  DELAY
+        pi.wave_clear()
 
-        flash_500.append(pigpio.pulse(1 << G1, 0, 500000))
-        flash_500.append(pigpio.pulse(0, 1 << G1, 500000))
+        pi.wave_add_generic(tone)  # 100 ms flashes
+        tone_wave = pi.wave_create()  # create and save id
+        pi.wave_send_repeat(tone_wave)
 
-        pi.wave_clear()  # clear any existing waveforms
+        if duration == 0:
+            return
 
-        pi.wave_add_generic(flash_500)  # 500 ms flashes
-        f500 = pi.wave_create()  # create and save id
-
-        pi.wave_send_repeat(f500)
-
-        time.sleep(4)
-
-        pi.wave_send_repeat(f500)
-
-        time.sleep(4)
-
+        sleep_time = duration * .001
+        time.sleep(sleep_time)
         pi.wave_tx_stop()  # stop waveform
 
         pi.wave_clear()  # clear all waveforms
