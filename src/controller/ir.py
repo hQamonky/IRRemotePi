@@ -4,12 +4,15 @@ import json
 
 class IR:
     controller = None
-    TR_pin = 12  # Transmitter GPIO pin
+    name = None
+    TR_pin = None  # Transmitter GPIO pin
     RR_pin = 13  # Receiver GPIO pin
 
-    def __init__(self, commands):
+    def __init__(self, device, gpio, commands):
+        self.name = "device_" + str(device)
+        self.TR_pin = gpio
         if not commands:
-            self.controller = CommandSet(emitter_gpio=self.TR_pin, receiver_gpio=self.RR_pin, name='remote')
+            self.controller = CommandSet(emitter_gpio=self.TR_pin, receiver_gpio=self.RR_pin, name=self.name)
         else:
             remote_json = json.dumps(self.build_json(commands))
             self.controller = CommandSet.from_json(remote_json)
@@ -21,7 +24,7 @@ class IR:
         data = data[:-1] + '}'
         return {
             "type": "CommandSet",
-            "name": "remote",
+            "name": self.name,
             "emitter_gpio": self.TR_pin,
             "receiver_gpio": self.RR_pin,
             "commands": json.loads(data),
@@ -34,3 +37,6 @@ class IR:
 
     def send(self, command):
         self.controller.emit("command_" + str(command))
+
+    def get_id(self):
+        return self.name[7:]

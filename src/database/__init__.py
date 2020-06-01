@@ -49,8 +49,8 @@ class Database:
         self.close()
         return data
 
-    def new_device(self, name):
-        Devices.insert(self.connect(), name)
+    def new_device(self, name, gpio):
+        Devices.insert(self.connect(), name, gpio)
         self.close()
         return "Device added"
 
@@ -59,8 +59,8 @@ class Database:
         self.close()
         return data[0]
 
-    def update_device(self, device_id, new_name):
-        Devices.update(self.connect(), device_id, new_name)
+    def update_device(self, device_id, new_name, gpio):
+        Devices.update(self.connect(), device_id, new_name, gpio)
         self.close()
         return "Device updated"
 

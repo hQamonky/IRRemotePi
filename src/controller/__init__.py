@@ -4,8 +4,13 @@ from src.database import Database
 
 class Controller:
     db = Database()
-    db.clean_commands()
-    ir = IR(db.get_all_commands())
+    ir = {}
+
+    def __init__(self):
+        self.db.clean_commands()
+        devices = self.db.get_devices()
+        for device in devices:
+            self.ir[device['id']] = IR(device['id'], device['gpio'], self.db.get_commands(device['id']))
 
     # Database
 
@@ -18,16 +23,16 @@ class Controller:
     def get_devices(self):
         return self.db.get_devices()
 
-    def new_device(self, device):
-        return self.db.new_device(device)
+    def new_device(self, device_name, gpio):
+        return self.db.new_device(device_name, gpio)
 
     def get_device(self, device_id):
         device = self.db.get_device(device_id)
         device = {"name": device["name"], "commands": self.db.get_commands(device_id)}
         return device
 
-    def edit_device(self, device_id, new_name):
-        return self.db.update_device(device_id, new_name)
+    def edit_device(self, device_id, name, gpio):
+        return self.db.update_device(device_id, name, gpio)
 
     def delete_device(self, device_id):
         return self.db.delete_device(device_id)
@@ -36,7 +41,7 @@ class Controller:
 
     def record_command(self, device_id, command_name):
         command_id = self.db.new_command(command_name, device_id, "new_command")
-        signal = self.ir.record(command_id)
+        signal = self.ir[device_id].record(command_id)
         # Waiting for user input...
         self.db.update_command_signal(command_id, signal)
         self.db.clean_commands()
@@ -51,7 +56,7 @@ class Controller:
     def send_command(self, device_id, command_id):
         command = self.db.get_command(command_id)
         device = self.db.get_device(device_id)
-        self.ir.send(command_id)
+        self.ir[device_id].send(command_id)
         data = {
             "device": device,
             "command": command

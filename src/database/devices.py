@@ -1,7 +1,7 @@
 class Devices:
     @staticmethod
     def create(cursor):
-        cursor.execute("CREATE TABLE Devices (id integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE)")
+        cursor.execute("CREATE TABLE Devices (id integer PRIMARY KEY AUTOINCREMENT, name text UNIQUE, gpio integer)")
 
     @staticmethod
     def drop(cursor):
@@ -18,12 +18,12 @@ class Devices:
         return cursor.fetchall()
 
     @staticmethod
-    def insert(cursor, name):
-        cursor.execute("INSERT INTO Devices (name) VALUES (?)", (name,))
+    def insert(cursor, name, gpio):
+        cursor.execute("INSERT INTO Devices (name, gpio) VALUES (?, ?)", (name, gpio))
 
     @staticmethod
-    def update(cursor, device_id, new_name):
-        cursor.execute("UPDATE Devices SET name = ? WHERE id = ?", (new_name, device_id))
+    def update(cursor, device_id, name, gpio):
+        cursor.execute("UPDATE Devices SET name = ?, gpio = ? WHERE id = ?", (name, gpio, device_id))
 
     @staticmethod
     def delete(cursor, device_id):

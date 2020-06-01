@@ -36,8 +36,9 @@ class Devices(Resource):
     def post():
         parser = reqparse.RequestParser()
         parser.add_argument('name', required=True)
+        parser.add_argument('gpio', required=True)
         args = parser.parse_args()
-        return {'message': 'Device has been added', 'data': con.new_device(args.name)}, 201
+        return {'message': 'Device has been added', 'data': con.new_device(args.name, args.gpio)}, 201
 
 
 class Device(Resource):
@@ -49,8 +50,9 @@ class Device(Resource):
     def post(device_id):
         parser = reqparse.RequestParser()
         parser.add_argument('name', required=True)
+        parser.add_argument('gpio', required=True)
         args = parser.parse_args()
-        return {'message': 'Device has been updated', 'data': con.edit_device(device_id, args.name)}, 201
+        return {'message': 'Device has been updated', 'data': con.edit_device(device_id, args.name, args.gpio)}, 201
 
     @staticmethod
     def delete(device_id):

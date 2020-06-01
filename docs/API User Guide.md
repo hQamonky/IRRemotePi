@@ -45,11 +45,13 @@ Does not return the commands of each device.
     "data": [
         {
             "id": 1,
-            "name": "Logitech Z906"
+            "name": "Logitech Z906",
+            "gpio": 12
         },
         {
             "id": 2,
-            "name": "HDMI Switch"
+            "name": "HDMI Switch",
+            "gpio": 12
         }
     ]
 }
@@ -64,7 +66,8 @@ Create a new device. Takes json as body format.
 ***Body Example***  
 ```json
 {
-	"name": "Logitech Z906"
+	"name": "Logitech Z906",
+    "gpio": 12
 }
 ```
 
@@ -80,6 +83,7 @@ Returns specified device as json format. Also returns the list of commands of th
     "message": "Success",
     "data": {
         "name": "HDMI Switch",
+        "gpio": 12,
         "commands": [
             {
                 "id": 4,
@@ -107,7 +111,8 @@ Edit the specified device. Takes json as body format.
 ***Body Example***  
 ```json
 {
-	"name": "Logitech Z906 THX"
+	"name": "Logitech Z906 THX",
+    "gpio": 12
 }
 ```
 
