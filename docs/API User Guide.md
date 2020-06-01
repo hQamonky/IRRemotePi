@@ -62,11 +62,13 @@ Does not return the commands of each device.
 `POST` `/devices`
 
 Create a new device. Takes json as body format.  
+Give it name and specify the GPIO number that your IR LED is connected to. The LED that you want to use to send the IR signals for this devices' command that is.  
+The GPIO number is based on BCM mode (the GPIO number and not the pin number/count).  
   
 ***Body Example***  
 ```json
 {
-	"name": "Logitech Z906",
+    "name": "Logitech Z906",
     "gpio": 12
 }
 ```

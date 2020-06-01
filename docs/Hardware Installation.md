@@ -47,7 +47,8 @@ I followed [this video](https://www.youtube.com/watch?v=TIbp7DzfOBM) to do my in
 You can use 150ohm to 500ohm and the lower the ohm, the “brighter” the LED will shine and so the  more distance you will be able to have between the emitter and the receiver.  
 The 330ohm resistors that I have should be just fine.  
 Here it’s for using it with 5V but 3.3V might also work (you’ll have less range if it does).  
-The circuit is: rpi ground -> resistor -> cathode of LED (short leg) - then - anode of LED (long leg) -> rpi GPIO12.  
+The circuit is: rpi ground -> resistor -> cathode of LED (short leg) - then - anode of LED (long leg) -> rpi GPIO.  
+You can use any GPIO pin that you want (except GPIO13), I personally used GPIO12.    
 
 ## Hooking up the IR receiver
 You don’t need any resistors.  
@@ -60,6 +61,7 @@ Voltage has to be between 2.7V and 5.5V for my model.
 “Signal” is what goes to the GPIO pin. You have to use the GPIO13.  
 
 ## GPIOs
-You must use the GPIO 12 for the transmitter and GPIO 13 for the receiver.  
+You must use the GPIO13 for the receiver.  
+For the transmitter, you can use any other GPIO pin. You will have to set the GPIO when you create a new device in the API. This ables you to connect several transmitter LEDs if you want to, but you can also use only one and set the same GPIO for every device that you create.  
 Here are the pins on the Raspberry Pi:  
 ![gpio](gpio.png)
