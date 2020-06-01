@@ -6,7 +6,7 @@ sudo apt update && sudo apt ugrade -y
 sudo apt install python3-pip virtualenv git
 sudo pip3 install --upgrade setuptools
 # Create application environment
-mkdir ~/qmk && cd ~/qmk || exit
+mkdir -p ~/qmk && cd ~/qmk || exit
 git clone https://github.com/hQamonky/IRRemotePi.git
 virtualenv IRRemotePi
 cd IRRemotePi || exit
