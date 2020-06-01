@@ -10,7 +10,7 @@ class Controller:
         self.db.clean_commands()
         devices = self.db.get_devices()
         for device in devices:
-            self.ir[device['id']] = IR(device['id'], device['gpio'], self.db.get_commands(device['id']))
+            self.ir['device_' + str(device['id'])] = IR(device['id'], device['gpio'], self.db.get_commands(device['id']))
 
     # Database
 
@@ -41,7 +41,7 @@ class Controller:
 
     def record_command(self, device_id, command_name):
         command_id = self.db.new_command(command_name, device_id, "new_command")
-        signal = self.ir[str(device_id)].record(command_id)
+        signal = self.ir['device_' + str(device_id)].record(command_id)
         # Waiting for user input...
         self.db.update_command_signal(command_id, signal)
         self.db.clean_commands()
@@ -56,7 +56,7 @@ class Controller:
     def send_command(self, device_id, command_id):
         command = self.db.get_command(command_id)
         device = self.db.get_device(device_id)
-        self.ir[str(device_id)].send(command_id)
+        self.ir['device_' + str(device_id)].send(command_id)
         data = {
             "device": device,
             "command": command
