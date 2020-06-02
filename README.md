@@ -1,6 +1,6 @@
 # IRRemotePi
-IR Remote Pi ispython web API that enables you to record and send IR signals with a Raspberry Pi.  
-This has been tested on a Raspberry Pi 2 Model B v2, but it should work on any Raspberry Pi.  
+IR Remote Pi is a python web API that enables you to record and send IR signals with a Raspberry Pi.  
+This has been tested on a Raspberry Pi 2 model B v2 with Raspbian Buster (release 10), but it should work on any Raspberry Pi.  
 
 # Installation   
 You can use the [install.sh](https://raw.githubusercontent.com/hQamonky/IRRemotePi/master/install.sh) script to install automatically, or you can check out the commands in the [install.sh](https://raw.githubusercontent.com/hQamonky/IRRemotePi/master/install.sh) script and run them manually.  
@@ -11,11 +11,16 @@ Open a terminal and run:
 > `chmod +x ~/Downloads/install.sh`  
 > `~/Downloads/install.sh`  
 
+When the installation script is finished, the service should be running.  
+Verify by entering the ip address of your Raspberry Pi in the web browser on the port number 8094.   
+
 ## Run service at startup
 Make the run script executable: `chmod +x ~/qmk/IRRemotePi/run.sh`  
 Edit cron with `sudo crontab -e`  
 Add the following line at the end of the file:  
 `@reboot ~/qmk/IRRemotePi/run.sh &`  
+Save and exit.  
+Verify that is worked by trying to access the API after rebooting the Raspberry.  
 
 ## Hardware installation
 Check out [this documentation](https://github.com/hQamonky/IRRemotePi/tree/master/docs/Hardware%20Installation.md).

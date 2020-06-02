@@ -1,0 +1,12 @@
+[Unit]
+Description=QMK IR Remote Pi web application
+After=network.target
+
+[Service]
+User=pi
+WorkingDirectory=~/qmk/IRRemotePi
+ExecStart=~/qmk/IRRemotePi/venv/bin/python3 ~/qmk/IRRemotePi/run.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
