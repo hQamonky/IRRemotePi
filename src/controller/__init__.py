@@ -7,6 +7,12 @@ class Controller:
     ir = {}
 
     def __init__(self):
+        self.load_ir()
+
+    # IR
+
+    def load_ir(self):
+        self.ir = {}
         self.db.clean_commands()
         devices = self.db.get_devices()
         for device in devices:
@@ -16,6 +22,7 @@ class Controller:
 
     def clear_database(self):
         self.db.create()
+        self.load_ir()
         return "Database cleared"
 
     # Devices
@@ -24,7 +31,9 @@ class Controller:
         return self.db.get_devices()
 
     def new_device(self, device_name, gpio):
-        return self.db.new_device(device_name, gpio)
+        result =  self.db.new_device(device_name, gpio)
+        self.load_ir()
+        return result
 
     def get_device(self, device_id):
         device = self.db.get_device(device_id)
@@ -32,10 +41,14 @@ class Controller:
         return device
 
     def edit_device(self, device_id, name, gpio):
-        return self.db.update_device(device_id, name, gpio)
+        result = self.db.update_device(device_id, name, gpio)
+        self.load_ir()
+        return result
 
     def delete_device(self, device_id):
-        return self.db.delete_device(device_id)
+        result = self.db.delete_device(device_id)
+        self.load_ir()
+        return result
 
     # Commands
 
@@ -51,7 +64,9 @@ class Controller:
         return self.db.update_command_name(command_id, new_name)
 
     def delete_command(self, device_id, command_id):
-        return self.db.delete_command(command_id)
+        result = self.db.delete_command(command_id)
+        self.load_ir()
+        return result
 
     def send_command(self, device_id, command_id):
         command = self.db.get_command(command_id)

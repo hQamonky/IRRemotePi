@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 User=pi
-WorkingDirectory=~/qmk/IRRemotePi
-ExecStart=~/qmk/IRRemotePi/venv/bin/python3 ~/qmk/IRRemotePi/run.py
+WorkingDirectory=/home/pi/qmk/IRRemotePi
+ExecStart=/home/pi/qmk/IRRemotePi/run.sh
 Restart=always
 
 [Install]

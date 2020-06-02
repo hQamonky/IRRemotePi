@@ -12,15 +12,9 @@ Open a terminal and run:
 > `~/Downloads/install.sh`  
 
 When the installation script is finished, the service should be running.  
-Verify by entering the ip address of your Raspberry Pi in the web browser on the port number 8094.   
-
-## Run service at startup
-Make the run script executable: `chmod +x ~/qmk/IRRemotePi/run.sh`  
-Edit cron with `sudo crontab -e`  
-Add the following line at the end of the file:  
-`@reboot ~/qmk/IRRemotePi/run.sh &`  
-Save and exit.  
-Verify that is worked by trying to access the API after rebooting the Raspberry.  
+Verify by entering the ip address of your Raspberry Pi in the web browser on the port number 8094.    
+If it's not working, it might be that you are not using the "pi" user. If so, refer to the "Use a different user" section bellow.  
+If that's not the issue, refer to the "troubleshooting" section.  
 
 ## Hardware installation
 Check out [this documentation](https://github.com/hQamonky/IRRemotePi/tree/master/docs/Hardware%20Installation.md).
@@ -31,19 +25,40 @@ Updates work the same as installation but with the [update.sh](https://raw.githu
 ## Safe update
 The "normal" update will not work if some changes have been done to the structure of the database. But if it works you will maintain all the remotes and IR commands that you registered and recorded.  
 Open a terminal and run:   
-> `chmod +x ~/qmk/IRRemotePi/update.sh`  
 > `~/qmk/IRRemotePi/update.sh`  
 
 ## Hard update
 The "hard" update **will overwrite your database**, meaning that you will **lose all the remotes and IR commands that you registered and recorded**.  
 But it is required if you want to update and if the "normal" update doesn't work.  
 Open a terminal and run:  
-> `chmod +x ~/qmk/IRRemotePi/update_force.sh`  
 > `~/qmk/IRRemotePi/update_force.sh`  
 
 # Usage
-Check out the [run.sh](https://raw.githubusercontent.com/hQamonky/IRRemotePi/master/run.sh) script to see how to launch the service.  
-The documentation for the API is accessible [here](https://github.com/hQamonky/IRRemotePi/blob/master/docs/API%20User%20Guide.md), at the `/` endpoint of the API, or directly in your installation folder at `~/qmk/IRRemotePi/docs/API\ User\ Guide.md`.  
+The install.sh script installs the service as a systemd service. So you can manage it using the following commands:  
+> `sudo systemctl start qmk_irpi`    
+> `sudo systemctl stop qmk_irpi`    
+> `sudo systemctl restart qmk_irpi`  
+    
+The documentation for using the API is accessible [here](https://github.com/hQamonky/IRRemotePi/blob/master/docs/API%20User%20Guide.md), at the `/` endpoint of the API, or directly in your installation folder at `~/qmk/IRRemotePi/docs/API\ User\ Guide.md`.  
 
 ## Use a different port
 By default, the API is accessible on the 8094 port. If you want to change this, edit the run.py file and change the 8094 value to whatever port you want.  
+
+# Troubleshooting
+The service is installed as a systemd service by default. This means you can see logs and stuff by using the `journalctl` command.  
+Check online for more information about `systemd`, `systemctl` and `journalctl`.  
+
+## Use a different user
+If you are not using the default user on your raspberry (which is called "pi"), the default configuration won't work. But you can fix it like so:  
+Edit the qmk_irpi.service file:   
+`sudo nano /etc/systemd/system/qmk_irpi.service`  
+Then, replace `pi` with your own username.  
+```
+. . . 
+
+User=<your_username>
+WorkingDirectory=/home/<your_username>/qmk/IRRemotePi
+ExecStart=/home/<your_username>/qmk/IRRemotePi/run.sh
+
+. . . 
+```
