@@ -4,3 +4,5 @@
 git -C ~/qmk/IRRemotePi reset --hard
 # Update
 git -C ~/qmk/IRRemotePi pull
+# Restart service
+sudo systemctl restart qmk_irpi

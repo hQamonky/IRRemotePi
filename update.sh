@@ -1,4 +1,5 @@
 #!/bin/bash
 
 git -C ~/qmk/IRRemotePi pull
-echo "Restart the service to run the updated version!"
+# Restart service
+sudo systemctl restart qmk_irpi

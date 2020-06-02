@@ -16,6 +16,12 @@ Verify by entering the ip address of your Raspberry Pi in the web browser on the
 If it's not working, it might be that you are not using the "pi" user. If so, refer to the "Use a different user" section bellow.  
 If that's not the issue, refer to the "troubleshooting" section.  
 
+## Run at startup
+By default, the service is configured to run at startup.  
+Here's how to enable or disable the service:  
+Make it run at startup: `sudo systemctl enable qmk_irpi`  
+Make it not run at startup: `sudo systemctl disable qmk_irpi`  
+
 ## Hardware installation
 Check out [this documentation](https://github.com/hQamonky/IRRemotePi/tree/master/docs/Hardware%20Installation.md).
 

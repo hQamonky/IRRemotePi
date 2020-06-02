@@ -24,4 +24,5 @@ chmod +x $appdir/IRRemotePi/update_force.sh
 # Create systemd service
 sudo cp $appdir/IRRemotePi/irremotepi.service /etc/systemd/system/qmk_irpi.service
 sudo systemctl daemon-reload
+sudo systemctl enable qmk_irpi
 sudo systemctl start qmk_irpi
