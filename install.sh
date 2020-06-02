@@ -15,7 +15,7 @@ cd $appdir/IRRemotePi || exit
 source bin/activate
 pip3 install --no-cache -r ./requirements.txt
 deactivate
-#sudo apt install libgpiod-dev # I'm not sure you need this
+#sudo apt install libgpiod-dev # I think we don't need this but I'm not sure.
 # Make run script executable
 chmod +x $appdir/IRRemotePi/run.sh
 # Make update scripts executable
