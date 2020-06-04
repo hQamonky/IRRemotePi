@@ -50,9 +50,11 @@ class Database:
         return data
 
     def new_device(self, name, gpio):
-        Devices.insert(self.connect(), name, gpio)
+        c = self.connect()
+        Devices.insert(c, name, gpio)
+        new_device_id = Devices.select_last_device_id(c)
         self.close()
-        return "Device added"
+        return new_device_id[0]['id']
 
     def get_device(self, device_id):
         data = Devices.select(self.connect(), device_id)

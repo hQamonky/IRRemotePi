@@ -31,9 +31,14 @@ class Controller:
         return self.db.get_devices()
 
     def new_device(self, device_name, gpio):
-        result =  self.db.new_device(device_name, gpio)
+        device_id =  self.db.new_device(device_name, gpio)
         self.load_ir()
-        return result
+        return {
+            "id": device_id,
+            "name": device_name,
+            "gpio": gpio,
+            "commands": []
+        }
 
     def get_device(self, device_id):
         device = self.db.get_device(device_id)
@@ -58,7 +63,12 @@ class Controller:
         # Waiting for user input...
         self.db.update_command_signal(command_id, signal)
         self.db.clean_commands()
-        return "Command added"
+        return {
+            "id": command_id,
+            "device_id": device_id,
+            "name": command_name,
+            "signal": signal
+        }
 
     def edit_command(self, device_id, command_id, new_name):
         return self.db.update_command_name(command_id, new_name)

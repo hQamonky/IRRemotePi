@@ -18,6 +18,11 @@ class Devices:
         return cursor.fetchall()
 
     @staticmethod
+    def select_last_device_id(cursor):
+        cursor.execute("SELECT id FROM Devices ORDER BY id DESC LIMIT 1")
+        return cursor.fetchall()
+
+    @staticmethod
     def insert(cursor, name, gpio):
         cursor.execute("INSERT INTO Devices (name, gpio) VALUES (?, ?)", (name, gpio))
 
