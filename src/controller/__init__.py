@@ -42,7 +42,7 @@ class Controller:
 
     def get_device(self, device_id):
         device = self.db.get_device(device_id)
-        device = {"name": device["name"], "gpio": device["gpio"], "commands": self.db.get_commands(device_id)}
+        device = {"id": device_id, "name": device["name"], "gpio": device["gpio"], "commands": self.db.get_commands(device_id)}
         return device
 
     def edit_device(self, device_id, name, gpio):
