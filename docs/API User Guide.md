@@ -1,3 +1,6 @@
+# To Do
+- Add "cancel recording" endpoint
+
 # IR Remote Pi
 
 This document describes the endpoints of the IR Remote Pi API.  
